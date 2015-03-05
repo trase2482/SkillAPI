@@ -21,12 +21,10 @@ import org.bukkit.plugin.Plugin;
 public class CmdForceProfess implements IFunction
 {
     private static final String NOT_PLAYER     = "not-player";
-    private static final String CANNOT_USE     = "cannot-use";
     private static final String INVALID_CLASS  = "invalid-class";
     private static final String SUCCESSS       = "success";
     private static final String PROFESSED      = "professed";
     private static final String CANNOT_PROFESS = "cannot-profess";
-    private static final String DISABLED       = "world-disabled";
 
     /**
      * Runs the command
@@ -69,9 +67,14 @@ public class CmdForceProfess implements IFunction
             else if (data.canProfess(target))
             {
                 data.profess(target);
-                if (player.isOnline())
+
+                // Messages
+                if (player != sender)
                 {
                     cmd.sendMessage(sender, SUCCESSS, ChatColor.GOLD + "{player}" + ChatColor.DARK_GREEN + " is now a " + ChatColor.GOLD + "{class}", Filter.PLAYER.setReplacement(player.getName()), RPGFilter.CLASS.setReplacement(target.getName()));
+                }
+                if (player.isOnline())
+                {
                     cmd.sendMessage((Player)player, PROFESSED, ChatColor.DARK_GREEN + "You are now a " + ChatColor.GOLD + "{class}", RPGFilter.CLASS.setReplacement(target.getName()));
                 }
             }

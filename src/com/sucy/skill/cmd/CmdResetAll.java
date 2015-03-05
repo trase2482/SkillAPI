@@ -3,6 +3,7 @@ package com.sucy.skill.cmd;
 import com.rit.sucy.commands.ConfigurableCommand;
 import com.rit.sucy.commands.IFunction;
 import com.sucy.skill.SkillAPI;
+import com.sucy.skill.api.player.PlayerAccounts;
 import com.sucy.skill.api.player.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -10,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 /**
- * A command that allows a player to rseet a single account
+ * A command that allows a player to reset all of their data
  */
-public class CmdReset implements IFunction
+public class CmdResetAll implements IFunction
 {
     private static final String CANNOT_USE   = "cannot-use";
     private static final String RESET        = "reset";
@@ -42,14 +43,17 @@ public class CmdReset implements IFunction
         {
             if (args.length == 0 || !args[0].equalsIgnoreCase("confirm"))
             {
-                cmd.sendMessage(sender, CONFIRM, ChatColor.DARK_RED + "This will delete your active account's data entirely");
-                cmd.sendMessage(sender, INSTRUCTIONS, ChatColor.GRAY + "Type " + ChatColor.GOLD + "/class reset confirm" + ChatColor.GRAY + " to continue");
+                cmd.sendMessage(sender, CONFIRM, ChatColor.DARK_RED + "This will delete all of your account data entirely");
+                cmd.sendMessage(sender, INSTRUCTIONS, ChatColor.GRAY + "Type " + ChatColor.GOLD + "/class resetall confirm" + ChatColor.GRAY + " to continue");
             }
             else
             {
-                PlayerData data = SkillAPI.getPlayerData((Player) sender);
-                data.resetAll();
-                cmd.sendMessage(sender, RESET, ChatColor.DARK_GREEN + "You have reset your active account data");
+                PlayerAccounts data = SkillAPI.getPlayerAccountData((Player) sender);
+                for (PlayerData playerData : data.getAllData().values())
+                {
+                    playerData.resetAll();
+                }
+                cmd.sendMessage(sender, RESET, ChatColor.DARK_GREEN + "You have reset all of your account data");
             }
         }
 

@@ -60,6 +60,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>The main class of the plugin which has the accessor methods into most of the API.</p>

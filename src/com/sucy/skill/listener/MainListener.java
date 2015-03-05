@@ -74,7 +74,7 @@ public class MainListener implements Listener
      *
      * @param event event details
      */
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event)
     {
         PlayerData data = SkillAPI.getPlayerData(event.getPlayer());

@@ -544,7 +544,7 @@ public final class PlayerData
      */
     public boolean isClass(RPGClass rpgClass)
     {
-        if (rpgClass == null)
+        if (rpgClass == null || classes.get(rpgClass.getGroup()) == null)
         {
             return false;
         }
