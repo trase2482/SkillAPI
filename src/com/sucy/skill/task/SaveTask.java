@@ -1,6 +1,7 @@
 package com.sucy.skill.task;
 
 import com.sucy.skill.SkillAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -25,6 +26,7 @@ public class SaveTask extends BukkitRunnable
     @Override
     public void run()
     {
+        Bukkit.getLogger().info("Running auto save task...");
         SkillAPI.saveData();
     }
 }

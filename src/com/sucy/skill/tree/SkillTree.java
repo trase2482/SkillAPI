@@ -5,7 +5,9 @@ import com.sucy.skill.api.classes.RPGClass;
 import com.sucy.skill.api.exception.SkillTreeException;
 import com.sucy.skill.api.skills.Skill;
 import com.sucy.skill.data.Permissions;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +55,12 @@ public abstract class SkillTree
     {
 
         // Get included skills
+        Bukkit.getLogger().info("Arranging " + tree.getName());
         ArrayList<Skill> skills = new ArrayList<Skill>();
         for (Skill skill : tree.getSkills())
         {
+            Bukkit.getLogger().info("- " + skill.getName());
+
             if (!SkillAPI.isSkillRegistered(skill))
             {
                 api.getLogger().severe("Failed to add skill to tree - " + skill + ": Skill does not exist");
@@ -65,6 +70,7 @@ public abstract class SkillTree
             {
                 skills.add(skill);
             }
+            else Bukkit.getLogger().info("  -> Hidden skill: " + skill.getName());
         }
 
         // Arrange the skills
